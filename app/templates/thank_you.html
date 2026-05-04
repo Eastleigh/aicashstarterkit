@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You — AI Cash Starter Kit</title>
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --border: #1e1e2e;
+            --text: #e8e8ed;
+            --muted: #8b8b9e;
+            --accent: #6c5ce7;
+            --green: #00d68f;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 60px 24px;
+        }
+        .check-icon {
+            width: 80px; height: 80px;
+            background: rgba(0, 214, 143, 0.15);
+            border: 3px solid var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 24px;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+        p {
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+        .download-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 32px 0;
+            text-align: left;
+        }
+        .download-section h3 {
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+        .download-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 15px;
+        }
+        .download-item:last-child { border-bottom: none; }
+        .download-item .icon { font-size: 20px; }
+        .download-item .name { flex: 1; }
+        .download-item .format {
+            color: var(--muted);
+            font-size: 13px;
+        }
+        .note {
+            background: rgba(108, 92, 231, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 20px;
+            font-size: 15px;
+            color: var(--muted);
+        }
+        .note strong { color: var(--text); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="check-icon">&#10003;</div>
+    <h1>You're In!</h1>
+    <p>Your payment was successful. Welcome to the AI Cash Starter Kit.</p>
+
+    <div class="download-section">
+        <h3>Your Downloads</h3>
+        <div class="download-item">
+            <span class="icon">&#128218;</span>
+            <span class="name">AI Income Playbook</span>
+            <span class="format">PDF, 42 pages</span>
+        </div>
+        <div class="download-item">
+            <span class="icon">&#128196;</span>
+            <span class="name">50 Plug-and-Play AI Prompts</span>
+            <span class="format">PDF</span>
+        </div>
+        <div class="download-item">
+            <span class="icon">&#128187;</span>
+            <span class="name">Freelancer Quick-Start Templates</span>
+            <span class="format">PDF + DOCX</span>
+        </div>
+        <div class="download-item">
+            <span class="icon">&#128176;</span>
+            <span class="name">Digital Product Launch Guide</span>
+            <span class="format">PDF, 28 pages</span>
+        </div>
+        <div class="download-item">
+            <span class="icon">&#128200;</span>
+            <span class="name">AI Tools Cheat Sheet</span>
+            <span class="format">PDF</span>
+        </div>
+        <div class="download-item">
+            <span class="icon">&#127919;</span>
+            <span class="name">30-Day Action Plan</span>
+            <span class="format">PDF</span>
+        </div>
+    </div>
+
+    <div class="note">
+        <strong>Check your email.</strong> We've sent a confirmation with download links to the email you used at checkout. If you don't see it, check your spam folder.
+    </div>
+</div>
+</body>
+</html>
