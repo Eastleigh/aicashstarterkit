@@ -1,4 +1,4 @@
-app = 'ai-cash-starter-kit'
+app = 'aicashstarterkit'
 primary_region = 'iad'
 
 [build]
@@ -11,4 +11,4 @@ primary_region = 'iad'
   min_machines_running = 0
 
 [env]
-  DOMAIN = "https://aicashstarterkit.com"
+  DOMAIN = "https://aicashstarterkit.fly.dev"
