@@ -13,7 +13,7 @@ from fastapi.templating import Jinja2Templates
 BASE_DIR = Path(__file__).resolve().parent
 PRODUCTS_DIR = BASE_DIR.parent / "products"
 
-app = FastAPI(title="AI Cash Starter Kit")
+app = FastAPI(title="AI Income Blueprint")
 app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
@@ -21,7 +21,7 @@ STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 PRICE_CENTS = 2700  # $27
-PRODUCT_NAME = "AI Cash Starter Kit"
+PRODUCT_NAME = "AI Income Blueprint"
 
 if STRIPE_SECRET_KEY:
     stripe.api_key = STRIPE_SECRET_KEY
@@ -56,7 +56,7 @@ async def create_checkout():
                     "currency": "usd",
                     "product_data": {
                         "name": PRODUCT_NAME,
-                        "description": "Instant access to templates, scripts, and step-by-step guides for making money with AI.",
+                        "description": "Your step-by-step blueprint to making your first $300 with AI. Templates, prompts, and a 30-day action plan.",
                     },
                     "unit_amount": PRICE_CENTS,
                 },
