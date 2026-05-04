@@ -11,4 +11,4 @@ primary_region = 'iad'
   min_machines_running = 0
 
 [env]
-  DOMAIN = "https://aicashstarterkit.fly.dev"
+  DOMAIN = "https://aicashstarterkit.com"
