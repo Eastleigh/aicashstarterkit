@@ -31,15 +31,14 @@ DOMAIN = os.getenv("DOMAIN", "http://localhost:8000")
 
 @app.get("/", response_class=HTMLResponse)
 async def landing(request: Request):
-    return templates.TemplateResponse("landing.html", {
-        "request": request,
+    return templates.TemplateResponse(request, "landing.html", {
         "stripe_key": STRIPE_PUBLISHABLE_KEY,
     })
 
 
 @app.get("/thank-you", response_class=HTMLResponse)
 async def thank_you(request: Request):
-    return templates.TemplateResponse("thank_you.html", {"request": request})
+    return templates.TemplateResponse(request, "thank_you.html")
 
 
 @app.post("/api/checkout")
