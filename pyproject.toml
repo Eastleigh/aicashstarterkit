@@ -14,6 +14,7 @@ dependencies = [
     "stripe>=5.4.0",
     "python-multipart>=0.0.6",
     "aiofiles>=23.2.1",
+    "fpdf2>=2.8.0",
 ]
 
 [project.optional-dependencies]
