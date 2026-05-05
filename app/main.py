@@ -1,16 +1,17 @@
 import os
-import json
-import hmac
-import hashlib
 import csv
+import logging
 from datetime import datetime, timezone
 from pathlib import Path
 
 import stripe
+import httpx
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, FileResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+
+logger = logging.getLogger(__name__)
 
 BASE_DIR = Path(__file__).resolve().parent
 PRODUCTS_DIR = BASE_DIR.parent / "products"
@@ -32,6 +33,10 @@ if STRIPE_SECRET_KEY:
 DOMAIN = os.getenv("DOMAIN", "http://localhost:8000")
 SUBSCRIBERS_FILE = BASE_DIR.parent / "subscribers.csv"
 
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", "")
+FROM_EMAIL = os.getenv("FROM_EMAIL", "support@aicashstarterkit.com")
+GA_MEASUREMENT_ID = os.getenv("GA_MEASUREMENT_ID", "")
+
 DOWNLOAD_FILES = {
     "01-ai-income-playbook": "01-ai-income-playbook.pdf",
     "02-50-ai-prompts": "02-50-ai-prompts.pdf",
@@ -49,6 +54,7 @@ verified_sessions: set[str] = set()
 async def landing(request: Request):
     return templates.TemplateResponse(request, "landing.html", {
         "stripe_key": STRIPE_PUBLISHABLE_KEY,
+        "ga_id": GA_MEASUREMENT_ID,
     })
 
 
@@ -72,6 +78,7 @@ async def thank_you(request: Request):
     return templates.TemplateResponse(request, "thank_you.html", {
         "verified": verified,
         "session_id": session_id,
+        "ga_id": GA_MEASUREMENT_ID,
     })
 
 
@@ -173,9 +180,74 @@ async def stripe_webhook(request: Request):
         session_id = session.get("id", "")
         if session_id:
             verified_sessions.add(session_id)
-        print(f"[SALE] {customer_email} purchased {PRODUCT_NAME} for ${PRICE_CENTS / 100:.2f}")
+        logger.info(f"[SALE] {customer_email} purchased {PRODUCT_NAME} for ${PRICE_CENTS / 100:.2f}")
+
+        if SENDGRID_API_KEY and customer_email != "unknown":
+            try:
+                await send_purchase_email(customer_email, session_id)
+                logger.info(f"[EMAIL] Sent download links to {customer_email}")
+            except Exception as e:
+                logger.error(f"[EMAIL] Failed to send to {customer_email}: {e}")
 
     return JSONResponse({"status": "ok"})
+
+
+async def send_purchase_email(to_email: str, session_id: str):
+    """Send download links to buyer via SendGrid."""
+    download_url = f"{DOMAIN}/thank-you?session_id={session_id}"
+
+    html_content = f"""
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #333;">
+        <div style="text-align: center; margin-bottom: 32px;">
+            <h1 style="color: #6c5ce7; font-size: 28px; margin: 0;">AI Income Blueprint</h1>
+            <p style="color: #888; font-size: 14px; margin-top: 4px;">Your purchase is confirmed</p>
+        </div>
+
+        <p style="font-size: 16px; line-height: 1.6;">Hi there,</p>
+        <p style="font-size: 16px; line-height: 1.6;">Thank you for purchasing the <strong>AI Income Blueprint</strong>! Your 6 resources are ready to download.</p>
+
+        <div style="background: #f8f9fa; border-radius: 12px; padding: 24px; margin: 24px 0;">
+            <h3 style="margin: 0 0 16px 0; font-size: 18px;">Your Downloads:</h3>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="padding: 8px 0; border-bottom: 1px solid #eee;">&#128218; AI Income Playbook (6 pages)</li>
+                <li style="padding: 8px 0; border-bottom: 1px solid #eee;">&#128196; 50 Plug-and-Play AI Prompts (13 pages)</li>
+                <li style="padding: 8px 0; border-bottom: 1px solid #eee;">&#128187; Freelancer Quick-Start Templates (7 pages)</li>
+                <li style="padding: 8px 0; border-bottom: 1px solid #eee;">&#128176; Digital Product Launch Guide (6 pages)</li>
+                <li style="padding: 8px 0; border-bottom: 1px solid #eee;">&#128200; AI Tools Cheat Sheet (5 pages)</li>
+                <li style="padding: 8px 0;">&#127919; 30-Day Action Plan (8 pages)</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin: 32px 0;">
+            <a href="{download_url}" style="display: inline-block; background: linear-gradient(135deg, #6c5ce7, #a855f7); color: white; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 16px;">Access Your Downloads</a>
+        </div>
+
+        <p style="font-size: 14px; color: #888; line-height: 1.6;">Bookmark your download page so you can come back anytime. Your access never expires.</p>
+
+        <hr style="border: none; border-top: 1px solid #eee; margin: 32px 0;">
+
+        <p style="font-size: 13px; color: #aaa; text-align: center;">Questions? Reply to this email or contact <a href="mailto:support@aicashstarterkit.com" style="color: #6c5ce7;">support@aicashstarterkit.com</a></p>
+    </div>
+    """
+
+    payload = {
+        "personalizations": [{"to": [{"email": to_email}]}],
+        "from": {"email": FROM_EMAIL, "name": "AI Income Blueprint"},
+        "subject": "Your AI Income Blueprint is ready to download",
+        "content": [{"type": "text/html", "value": html_content}],
+    }
+
+    async with httpx.AsyncClient() as client:
+        resp = await client.post(
+            "https://api.sendgrid.com/v3/mail/send",
+            json=payload,
+            headers={
+                "Authorization": f"Bearer {SENDGRID_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            timeout=10.0,
+        )
+        resp.raise_for_status()
 
 
 if __name__ == "__main__":

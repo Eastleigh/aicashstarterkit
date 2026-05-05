@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Income Blueprint — Make Your First $300 With AI</title>
+    {% if ga_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ ga_id }}');
+    </script>
+    {% endif %}
     <meta name="description" content="Make your first $300 with AI — even if you've never made a dollar online. Step-by-step blueprint with templates, prompts, and a 30-day action plan. Only $27.">
     <meta property="og:title" content="AI Income Blueprint — Make Your First $300 With AI">
     <meta property="og:description" content="Make your first $300 with AI — even if you've never made a dollar online. Step-by-step blueprint for $27.">
