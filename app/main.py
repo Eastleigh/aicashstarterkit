@@ -2,6 +2,8 @@ import os
 import json
 import hmac
 import hashlib
+import csv
+from datetime import datetime, timezone
 from pathlib import Path
 
 import stripe
@@ -28,6 +30,7 @@ if STRIPE_SECRET_KEY:
     stripe.api_key = STRIPE_SECRET_KEY
 
 DOMAIN = os.getenv("DOMAIN", "http://localhost:8000")
+SUBSCRIBERS_FILE = BASE_DIR.parent / "subscribers.csv"
 
 DOWNLOAD_FILES = {
     "01-ai-income-playbook": "01-ai-income-playbook.pdf",
@@ -98,6 +101,27 @@ async def download_file(file_key: str, session_id: str = ""):
         filename=DOWNLOAD_FILES[file_key],
         media_type="application/pdf",
     )
+
+
+@app.post("/api/subscribe")
+async def subscribe(request: Request):
+    try:
+        body = await request.json()
+        email = body.get("email", "").strip().lower()
+        if not email or "@" not in email:
+            return JSONResponse({"error": "Invalid email"}, status_code=400)
+
+        file_exists = SUBSCRIBERS_FILE.exists()
+        with open(SUBSCRIBERS_FILE, "a", newline="") as f:
+            writer = csv.writer(f)
+            if not file_exists:
+                writer.writerow(["email", "subscribed_at"])
+            writer.writerow([email, datetime.now(timezone.utc).isoformat()])
+
+        print(f"[SUBSCRIBER] {email}")
+        return JSONResponse({"status": "ok"})
+    except Exception:
+        return JSONResponse({"error": "Something went wrong"}, status_code=500)
 
 
 @app.post("/api/checkout")

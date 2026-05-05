@@ -440,6 +440,26 @@
         .toast.show { transform: translateY(0); opacity: 1; }
         .toast.error { border-color: var(--red); }
 
+        /* ---- Sticky Mobile CTA ---- */
+        .sticky-cta {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 12px 16px;
+            z-index: 9998;
+            text-align: center;
+        }
+        .sticky-cta .cta-btn {
+            width: 100%;
+            justify-content: center;
+            padding: 14px;
+            font-size: 16px;
+        }
+
         /* ---- Mobile ---- */
         @media (max-width: 600px) {
             .hero { padding: 60px 16px 40px; }
@@ -449,6 +469,9 @@
             .pricing-box { padding: 36px 24px; }
             .pricing-price .current { font-size: 44px; }
             .section { padding: 60px 16px; }
+            .sticky-cta { display: block; }
+            footer { padding-bottom: 80px; }
+            .final-cta { padding-bottom: 100px; }
         }
     </style>
 </head>
@@ -478,16 +501,16 @@
 <section class="social-proof">
     <div class="proof-stats">
         <div class="proof-stat">
-            <div class="num">2,400+</div>
-            <div class="label">Copies Sold</div>
+            <div class="num">6</div>
+            <div class="label">Complete Resources</div>
         </div>
         <div class="proof-stat">
-            <div class="num">4.9/5</div>
-            <div class="label">Average Rating</div>
+            <div class="num">50+</div>
+            <div class="label">Ready-to-Use Prompts</div>
         </div>
         <div class="proof-stat">
-            <div class="num">12</div>
-            <div class="label">Resources Included</div>
+            <div class="num">30</div>
+            <div class="label">Day Action Plan</div>
         </div>
     </div>
 </section>
@@ -584,26 +607,26 @@
     </div>
 </section>
 
-<!-- Testimonials -->
+<!-- What Makes This Different -->
 <section class="section" style="background: var(--surface);">
     <div class="container">
-        <h2 class="section-title">What Buyers Are Saying</h2>
-        <p class="section-sub">Real results from real beginners.</p>
+        <h2 class="section-title">Why This Works</h2>
+        <p class="section-sub">This isn't another course or theory dump. It's a system.</p>
         <div class="testimonials-grid">
             <div class="testimonial">
-                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p>"Made my first $150 freelancing with AI in week 2. The proposal templates alone are worth 10x the price."</p>
-                <div class="author">Sarah M. — Content Writer</div>
+                <div class="stars" style="color: var(--accent);">&#9881;</div>
+                <p style="font-style: normal; color: var(--text);"><strong>Done-for-you templates</strong></p>
+                <p>No blank-page syndrome. Every prompt, email, and proposal is ready to copy, paste, and customize.</p>
             </div>
             <div class="testimonial">
-                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p>"I was stuck in tutorial hell for months. This blueprint gave me a clear plan and I actually started earning. Best $27 I've spent."</p>
-                <div class="author">James R. — Side Hustler</div>
+                <div class="stars" style="color: var(--green);">&#9201;</div>
+                <p style="font-style: normal; color: var(--text);"><strong>Built for speed</strong></p>
+                <p>The 30-day plan tells you exactly what to do each day. No guessing, no decision fatigue.</p>
             </div>
             <div class="testimonial">
-                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p>"The prompt library is insane. I use it every day for client work. Already made back 20x what I paid."</p>
-                <div class="author">Lisa K. — Freelance Copywriter</div>
+                <div class="stars" style="color: var(--gold);">&#128274;</div>
+                <p style="font-style: normal; color: var(--text);"><strong>No hidden costs</strong></p>
+                <p>$27 once. No subscriptions, no upsells, no "premium tier." You get everything, forever.</p>
             </div>
         </div>
     </div>
@@ -674,7 +697,7 @@
                     Is there a refund policy?
                     <span class="arrow">&#9660;</span>
                 </button>
-                <div class="faq-a">Yes — 30-day money-back guarantee. If you're not satisfied, email us and we'll refund you. No questions asked.</div>
+                <div class="faq-a">Yes — 30-day money-back guarantee. If you're not satisfied, email support@aicashstarterkit.com and we'll refund you. No questions asked.</div>
             </div>
             <div class="faq-item">
                 <button class="faq-q" onclick="toggleFaq(this)">
@@ -691,13 +714,13 @@
 <section class="guarantee">
     <div class="shield">&#128737;</div>
     <h3>30-Day Money-Back Guarantee</h3>
-    <p>Try the entire blueprint risk-free. If you don't love it, email us within 30 days for a full refund. Zero risk.</p>
+    <p>Try the entire blueprint risk-free. If you don't love it, email support@aicashstarterkit.com within 30 days for a full refund. Zero risk.</p>
 </section>
 
 <!-- Final CTA -->
 <section class="final-cta">
     <h2>Ready to Make Your First $300 With AI?</h2>
-    <p>Join 2,400+ beginners who already got started. Your future self will thank you.</p>
+    <p>Stop overthinking. Start earning. Your future self will thank you.</p>
     <button class="cta-btn" onclick="checkout()">
         Get the Blueprint — Just $27
     </button>
@@ -706,10 +729,32 @@
     </p>
 </section>
 
+<!-- Sticky Mobile CTA -->
+<div class="sticky-cta">
+    <button class="cta-btn" onclick="checkout()">Get the Blueprint — $27</button>
+</div>
+
 <!-- Footer -->
 <footer>
     <p>&copy; 2025 AI Income Blueprint. All rights reserved.</p>
+    <p style="margin-top: 8px;">Questions? <a href="mailto:support@aicashstarterkit.com" style="color: var(--accent); text-decoration: none;">support@aicashstarterkit.com</a></p>
 </footer>
+
+<!-- Email Capture Popup -->
+<div id="email-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:10000; align-items:center; justify-content:center;">
+    <div style="background:var(--surface); border:2px solid var(--accent); border-radius:20px; padding:40px 32px; max-width:420px; width:90%; text-align:center; position:relative;">
+        <button onclick="closePopup()" style="position:absolute; top:12px; right:16px; background:none; border:none; color:var(--muted); font-size:24px; cursor:pointer;">&times;</button>
+        <div style="font-size:36px; margin-bottom:12px;">&#127873;</div>
+        <h3 style="font-size:22px; margin-bottom:8px; color:var(--text);">Wait — Free AI Prompts Inside</h3>
+        <p style="color:var(--muted); font-size:15px; margin-bottom:20px;">Get 5 of our best money-making AI prompts free. No spam, unsubscribe anytime.</p>
+        <form id="email-form" onsubmit="captureEmail(event)">
+            <input type="email" id="popup-email" required placeholder="Your best email" style="width:100%; padding:14px 16px; border-radius:10px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:16px; margin-bottom:12px; outline:none;">
+            <button type="submit" style="width:100%; padding:14px; border-radius:10px; border:none; background:linear-gradient(135deg, var(--green), #00b377); color:white; font-size:16px; font-weight:700; cursor:pointer;">Send Me the Free Prompts</button>
+        </form>
+        <p id="popup-success" style="display:none; color:var(--green); font-size:15px; margin-top:12px;">Sent! Check your inbox.</p>
+        <p style="color:var(--muted); font-size:12px; margin-top:12px;">No spam. Unsubscribe anytime.</p>
+    </div>
+</div>
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
@@ -732,6 +777,35 @@ function showToast(msg, isError) {
     t.className = 'toast show' + (isError ? ' error' : '');
     setTimeout(() => t.className = 'toast', 4000);
 }
+
+// Email popup — shows after 45s or on exit intent
+let popupShown = false;
+function showPopup() {
+    if (popupShown || sessionStorage.getItem('popup_closed')) return;
+    popupShown = true;
+    const o = document.getElementById('email-overlay');
+    o.style.display = 'flex';
+}
+function closePopup() {
+    document.getElementById('email-overlay').style.display = 'none';
+    sessionStorage.setItem('popup_closed', '1');
+}
+async function captureEmail(e) {
+    e.preventDefault();
+    const email = document.getElementById('popup-email').value;
+    try {
+        await fetch('/api/subscribe', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email}) });
+    } catch(err) {}
+    document.getElementById('email-form').style.display = 'none';
+    document.getElementById('popup-success').style.display = 'block';
+    setTimeout(closePopup, 2000);
+}
+// Exit intent (desktop)
+document.addEventListener('mouseout', function(e) {
+    if (e.clientY < 10) showPopup();
+});
+// Timer fallback (mobile + desktop)
+setTimeout(showPopup, 45000);
 
 async function checkout() {
     const btn = event.target;
