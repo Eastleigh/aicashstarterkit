@@ -47,7 +47,7 @@
 
         .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
 
-        /* ---- Announcement Bar ---- */
+        /* ---- Announcement Bar with Countdown ---- */
         .announcement {
             background: linear-gradient(90deg, var(--accent), #a855f7);
             text-align: center;
@@ -55,6 +55,19 @@
             font-size: 14px;
             font-weight: 600;
             letter-spacing: 0.5px;
+        }
+        .countdown {
+            display: inline-flex;
+            gap: 6px;
+            margin-left: 10px;
+        }
+        .countdown-unit {
+            background: rgba(0,0,0,0.3);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-variant-numeric: tabular-nums;
+            min-width: 28px;
+            text-align: center;
         }
 
         /* ---- Hero ---- */
@@ -161,6 +174,49 @@
         .proof-stat .label {
             font-size: 14px;
             color: var(--muted);
+        }
+
+        /* ---- VSL Section ---- */
+        .vsl-section {
+            padding: 60px 24px;
+            text-align: center;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+        .vsl-container {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        .vsl-placeholder {
+            background: var(--bg);
+            border: 2px dashed var(--border);
+            border-radius: 16px;
+            padding: 60px 24px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .vsl-placeholder:hover {
+            border-color: var(--accent);
+        }
+        .vsl-play {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent), #a855f7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 32px;
+        }
+        .vsl-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .vsl-sub {
+            color: var(--muted);
+            font-size: 14px;
         }
 
         /* ---- Problem ---- */
@@ -358,6 +414,15 @@
             font-size: 18px;
             flex-shrink: 0;
         }
+        .purchase-count {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+        .purchase-count .count-num {
+            color: var(--green);
+            font-weight: 700;
+        }
 
         /* ---- FAQ ---- */
         .faq-list {
@@ -430,6 +495,8 @@
             color: var(--muted);
             font-size: 13px;
         }
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
 
         /* ---- Toast ---- */
         .toast {
@@ -469,6 +536,82 @@
             font-size: 16px;
         }
 
+        /* ---- Discount Popup ---- */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+        .popup-box {
+            background: var(--surface);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            padding: 40px 32px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+        .popup-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .popup-icon { font-size: 48px; margin-bottom: 12px; }
+        .popup-title { font-size: 22px; margin-bottom: 8px; color: var(--text); font-weight: 700; }
+        .popup-text { color: var(--muted); font-size: 15px; margin-bottom: 20px; }
+        .popup-price {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+        .popup-price .old-price {
+            text-decoration: line-through;
+            color: var(--red);
+        }
+        .popup-price .new-price {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--green);
+            display: block;
+            margin-top: 4px;
+        }
+        .popup-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, var(--green), #00b377);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+        .popup-btn:hover { opacity: 0.9; }
+        .popup-skip {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 13px;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .popup-note {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 12px;
+        }
+
         /* ---- Mobile ---- */
         @media (max-width: 600px) {
             .hero { padding: 60px 16px 40px; }
@@ -481,20 +624,27 @@
             .sticky-cta { display: block; }
             footer { padding-bottom: 80px; }
             .final-cta { padding-bottom: 100px; }
+            .announcement { font-size: 12px; padding: 8px 12px; }
+            .countdown-unit { padding: 2px 4px; font-size: 12px; }
         }
     </style>
 </head>
 <body>
 
-<!-- Announcement Bar -->
+<!-- Announcement Bar with Countdown -->
 <div class="announcement">
-    Limited Time: Get the full AI Income Blueprint for just $27 (regular $97)
+    <span>Price goes up when the timer hits zero:</span>
+    <span class="countdown" id="countdown">
+        <span class="countdown-unit" id="cd-hours">00</span>h
+        <span class="countdown-unit" id="cd-mins">00</span>m
+        <span class="countdown-unit" id="cd-secs">00</span>s
+    </span>
 </div>
 
 <!-- Hero -->
 <section class="hero">
     <span class="badge">New for 2025</span>
-    <h1>Make Your First $300<br>With <span class="highlight">AI</span></h1>
+    <h1 id="hero-headline">Make Your First $300<br>With <span class="highlight">AI</span></h1>
     <p class="subtitle">
         Even if you've never made a dollar online. No coding. No courses. No confusion. Just follow the steps.
     </p>
@@ -520,6 +670,18 @@
         <div class="proof-stat">
             <div class="num">30</div>
             <div class="label">Day Action Plan</div>
+        </div>
+    </div>
+</section>
+
+<!-- Video Sales Letter -->
+<section class="vsl-section">
+    <div class="vsl-container">
+        <h2 style="font-size: 24px; margin-bottom: 20px;">See What's Inside (2 min)</h2>
+        <div class="vsl-placeholder" id="vsl-player" onclick="playVSL()">
+            <div class="vsl-play">&#9654;</div>
+            <div class="vsl-text">Watch the Quick Overview</div>
+            <div class="vsl-sub">See exactly what you get and how it works</div>
         </div>
     </div>
 </section>
@@ -665,6 +827,9 @@
         <button class="cta-btn" onclick="checkout()" style="width: 100%; justify-content: center;">
             Get the Blueprint — $27
         </button>
+        {% if purchase_count > 0 %}
+        <p class="purchase-count"><span class="count-num">{{ purchase_count }}</span> people have purchased this blueprint</p>
+        {% endif %}
     </div>
 </section>
 
@@ -743,87 +908,218 @@
     <button class="cta-btn" onclick="checkout()">Get the Blueprint — $27</button>
 </div>
 
-<!-- Footer -->
-<footer>
-    <p>&copy; 2025 AI Income Blueprint. All rights reserved.</p>
-    <p style="margin-top: 8px;">Questions? <a href="mailto:support@aicashstarterkit.com" style="color: var(--accent); text-decoration: none;">support@aicashstarterkit.com</a></p>
-</footer>
+<!-- Exit-Intent Discount Popup -->
+<div class="popup-overlay" id="discount-overlay">
+    <div class="popup-box">
+        <button class="popup-close" onclick="closeDiscount()">&times;</button>
+        <div class="popup-icon">&#128176;</div>
+        <div class="popup-title">Wait — Special Offer!</div>
+        <div class="popup-text">We noticed you're about to leave. Here's an exclusive discount just for you:</div>
+        <div class="popup-price">
+            <span class="old-price">$27</span>
+            <span class="new-price">$19</span>
+        </div>
+        <button class="popup-btn" onclick="checkoutDiscount()">Get It for $19 — Save 30%</button>
+        <button class="popup-skip" onclick="closeDiscount()">No thanks, I'll pay full price later</button>
+        <div class="popup-note">This offer disappears when you close this window.</div>
+    </div>
+</div>
 
-<!-- Email Capture Popup -->
-<div id="email-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:10000; align-items:center; justify-content:center;">
-    <div style="background:var(--surface); border:2px solid var(--accent); border-radius:20px; padding:40px 32px; max-width:420px; width:90%; text-align:center; position:relative;">
-        <button onclick="closePopup()" style="position:absolute; top:12px; right:16px; background:none; border:none; color:var(--muted); font-size:24px; cursor:pointer;">&times;</button>
-        <div style="font-size:36px; margin-bottom:12px;">&#127873;</div>
-        <h3 style="font-size:22px; margin-bottom:8px; color:var(--text);">Wait — Free AI Prompts Inside</h3>
-        <p style="color:var(--muted); font-size:15px; margin-bottom:20px;">Get 5 of our best money-making AI prompts free. No spam, unsubscribe anytime.</p>
+<!-- Email Capture Popup (shows if discount was dismissed) -->
+<div class="popup-overlay" id="email-overlay">
+    <div class="popup-box">
+        <button class="popup-close" onclick="closeEmailPopup()">&times;</button>
+        <div class="popup-icon">&#127873;</div>
+        <div class="popup-title">Wait — Free AI Prompts Inside</div>
+        <div class="popup-text">Get 5 of our best money-making AI prompts free. No spam, unsubscribe anytime.</div>
         <form id="email-form" onsubmit="captureEmail(event)">
             <input type="email" id="popup-email" required placeholder="Your best email" style="width:100%; padding:14px 16px; border-radius:10px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:16px; margin-bottom:12px; outline:none;">
             <button type="submit" style="width:100%; padding:14px; border-radius:10px; border:none; background:linear-gradient(135deg, var(--green), #00b377); color:white; font-size:16px; font-weight:700; cursor:pointer;">Send Me the Free Prompts</button>
         </form>
         <p id="popup-success" style="display:none; color:var(--green); font-size:15px; margin-top:12px;">Sent! Check your inbox.</p>
-        <p style="color:var(--muted); font-size:12px; margin-top:12px;">No spam. Unsubscribe anytime.</p>
+        <div class="popup-note">No spam. Unsubscribe anytime.</div>
     </div>
 </div>
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 AI Income Blueprint. All rights reserved.</p>
+    <p style="margin-top: 8px;">Questions? <a href="mailto:support@aicashstarterkit.com">support@aicashstarterkit.com</a></p>
+    <p style="margin-top: 8px;"><a href="/blog">Blog</a> &bull; <a href="/affiliate">Affiliate Program</a></p>
+</footer>
+
 <script>
+// ── Ref tracking ──
+const REF = '{{ ref }}';
+
+// ── Countdown Timer ──
+(function() {
+    var stored = localStorage.getItem('cd_end');
+    var end;
+    if (stored) {
+        end = parseInt(stored, 10);
+    } else {
+        end = Date.now() + 48 * 60 * 60 * 1000; // 48 hours
+        localStorage.setItem('cd_end', end);
+    }
+    function tick() {
+        var diff = Math.max(0, end - Date.now());
+        var h = Math.floor(diff / 3600000);
+        var m = Math.floor((diff % 3600000) / 60000);
+        var s = Math.floor((diff % 60000) / 1000);
+        document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+        document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
+        document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+        if (diff > 0) requestAnimationFrame(tick);
+    }
+    tick();
+    setInterval(tick, 1000);
+})();
+
+// ── A/B Headline Test ──
+(function() {
+    var headlines = [
+        'Make Your First $300<br>With <span class="highlight">AI</span>',
+        'Turn ChatGPT Into a<br><span class="highlight">$300/Week</span> Side Hustle',
+        'Your First <span class="highlight">$300</span><br>Starts With AI'
+    ];
+    var variant = localStorage.getItem('ab_headline');
+    if (!variant) {
+        variant = String(Math.floor(Math.random() * headlines.length));
+        localStorage.setItem('ab_headline', variant);
+    }
+    var idx = parseInt(variant, 10);
+    if (idx >= 0 && idx < headlines.length) {
+        document.getElementById('hero-headline').innerHTML = headlines[idx];
+    }
+    // Track which variant via GA4
+    {% if ga_id %}
+    gtag('event', 'ab_headline_view', { 'variant': 'headline_' + variant });
+    {% endif %}
+})();
+
+// ── FAQ Toggle ──
 function toggleFaq(btn) {
-    const answer = btn.nextElementSibling;
-    const isOpen = answer.classList.contains('open');
-    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
-    document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
+    var answer = btn.nextElementSibling;
+    var isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(function(a) { a.classList.remove('open'); });
+    document.querySelectorAll('.faq-q').forEach(function(q) { q.classList.remove('open'); });
     if (!isOpen) {
         answer.classList.add('open');
         btn.classList.add('open');
     }
 }
 
+// ── Toast ──
 function showToast(msg, isError) {
-    const t = document.getElementById('toast');
+    var t = document.getElementById('toast');
     t.textContent = msg;
     t.className = 'toast show' + (isError ? ' error' : '');
-    setTimeout(() => t.className = 'toast', 4000);
+    setTimeout(function() { t.className = 'toast'; }, 4000);
 }
 
-// Email popup — shows after 45s or on exit intent
-let popupShown = false;
-function showPopup() {
-    if (popupShown || sessionStorage.getItem('popup_closed')) return;
-    popupShown = true;
-    const o = document.getElementById('email-overlay');
-    o.style.display = 'flex';
+// ── VSL Placeholder ──
+function playVSL() {
+    {% if ga_id %}
+    gtag('event', 'vsl_play');
+    {% endif %}
+    showToast('Video coming soon! For now, scroll down to see everything included.', false);
 }
-function closePopup() {
+
+// ── Popups ──
+var discountShown = false;
+var emailPopupShown = false;
+
+function showDiscountPopup() {
+    if (discountShown || sessionStorage.getItem('discount_closed')) return;
+    discountShown = true;
+    document.getElementById('discount-overlay').style.display = 'flex';
+    {% if ga_id %}
+    gtag('event', 'discount_popup_shown');
+    {% endif %}
+}
+
+function closeDiscount() {
+    document.getElementById('discount-overlay').style.display = 'none';
+    sessionStorage.setItem('discount_closed', '1');
+}
+
+function showEmailPopup() {
+    if (emailPopupShown || sessionStorage.getItem('email_closed') || sessionStorage.getItem('discount_closed') === null) return;
+    emailPopupShown = true;
+    document.getElementById('email-overlay').style.display = 'flex';
+}
+
+function closeEmailPopup() {
     document.getElementById('email-overlay').style.display = 'none';
-    sessionStorage.setItem('popup_closed', '1');
+    sessionStorage.setItem('email_closed', '1');
 }
+
 async function captureEmail(e) {
     e.preventDefault();
-    const email = document.getElementById('popup-email').value;
+    var email = document.getElementById('popup-email').value;
     try {
-        await fetch('/api/subscribe', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email}) });
+        await fetch('/api/subscribe', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email: email}) });
     } catch(err) {}
     document.getElementById('email-form').style.display = 'none';
     document.getElementById('popup-success').style.display = 'block';
-    setTimeout(closePopup, 2000);
+    {% if ga_id %}
+    gtag('event', 'email_capture', { 'method': 'popup' });
+    {% endif %}
+    setTimeout(closeEmailPopup, 2000);
 }
-// Exit intent (desktop)
-document.addEventListener('mouseout', function(e) {
-    if (e.clientY < 10) showPopup();
-});
-// Timer fallback (mobile + desktop)
-setTimeout(showPopup, 45000);
 
-async function checkout() {
-    const btn = event.target;
-    const original = btn.textContent;
-    btn.textContent = 'Processing...';
-    btn.disabled = true;
+// Exit intent: show discount first, then email capture on second exit
+document.addEventListener('mouseout', function(e) {
+    if (e.clientY < 10) {
+        if (!discountShown && !sessionStorage.getItem('discount_closed')) {
+            showDiscountPopup();
+        } else if (!emailPopupShown && !sessionStorage.getItem('email_closed')) {
+            showEmailPopup();
+        }
+    }
+});
+
+// Timer fallback for mobile
+setTimeout(function() {
+    if (!discountShown && !sessionStorage.getItem('discount_closed')) {
+        showDiscountPopup();
+    }
+}, 60000); // 60 seconds
+
+setTimeout(function() {
+    if (!emailPopupShown && !sessionStorage.getItem('email_closed')) {
+        showEmailPopup();
+    }
+}, 90000); // 90 seconds
+
+// ── Checkout ──
+async function checkout(isDiscount) {
+    var btns = document.querySelectorAll('.cta-btn');
+    btns.forEach(function(b) { b.disabled = true; });
+
+    {% if ga_id %}
+    gtag('event', 'begin_checkout', {
+        'value': isDiscount ? 19 : 27,
+        'currency': 'USD',
+        'variant': localStorage.getItem('ab_headline') || '0'
+    });
+    {% endif %}
+
     try {
-        const res = await fetch('/api/checkout', { method: 'POST' });
-        const data = await res.json();
+        var body = {};
+        if (isDiscount) body.discount = true;
+        if (REF) body.ref = REF;
+
+        var res = await fetch('/api/checkout', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(body)
+        });
+        var data = await res.json();
         if (data.checkout_url) {
             window.location.href = data.checkout_url;
         } else {
@@ -832,9 +1128,16 @@ async function checkout() {
     } catch (e) {
         showToast('Connection error. Please try again.', true);
     } finally {
-        btn.textContent = original;
-        btn.disabled = false;
+        btns.forEach(function(b) { b.disabled = false; });
     }
+}
+
+function checkoutDiscount() {
+    closeDiscount();
+    {% if ga_id %}
+    gtag('event', 'discount_accepted');
+    {% endif %}
+    checkout(true);
 }
 </script>
 

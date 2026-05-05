@@ -11,6 +11,11 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', '{{ ga_id }}');
+        gtag('event', 'purchase', {
+            'transaction_id': '{{ session_id }}',
+            'value': 27.00,
+            'currency': 'USD'
+        });
     </script>
     {% endif %}
     <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
@@ -24,6 +29,8 @@
             --accent: #6c5ce7;
             --green: #00d68f;
             --green-glow: rgba(0, 214, 143, 0.2);
+            --gold: #ffd43b;
+            --accent-glow: rgba(108, 92, 231, 0.3);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -31,13 +38,10 @@
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         .container {
-            text-align: center;
             max-width: 650px;
+            margin: 0 auto;
             padding: 60px 24px;
         }
         .check-icon {
@@ -54,12 +58,14 @@
         h1 {
             font-size: 36px;
             margin-bottom: 16px;
+            text-align: center;
         }
         p {
             color: var(--muted);
             font-size: 18px;
             line-height: 1.7;
             margin-bottom: 16px;
+            text-align: center;
         }
         .download-section {
             background: var(--surface);
@@ -135,6 +141,7 @@
             padding: 20px;
             font-size: 15px;
             color: var(--muted);
+            text-align: left;
         }
         .note strong { color: var(--text); }
         .no-access {
@@ -145,12 +152,120 @@
             font-size: 15px;
             color: var(--muted);
             margin: 32px 0;
+            text-align: left;
         }
         .no-access a {
             color: var(--accent);
             text-decoration: none;
         }
         .no-access a:hover { text-decoration: underline; }
+
+        /* ---- Upsell Section ---- */
+        .upsell {
+            background: var(--surface);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 40px 0;
+            text-align: center;
+            position: relative;
+        }
+        .upsell-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: var(--bg);
+            padding: 4px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .upsell h3 {
+            font-size: 22px;
+            margin-bottom: 8px;
+            margin-top: 8px;
+        }
+        .upsell .upsell-desc {
+            color: var(--muted);
+            font-size: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .upsell-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 24px;
+            padding: 0;
+        }
+        .upsell-features li {
+            padding: 8px 0;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .upsell-features li .check {
+            color: var(--gold);
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .upsell-price {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+        .upsell-price .big {
+            font-size: 40px;
+            font-weight: 800;
+            color: var(--text);
+            display: block;
+            margin-top: 4px;
+        }
+        .upsell-price .strike {
+            text-decoration: line-through;
+            color: var(--red);
+        }
+        .upsell-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #f0c27f, #fc5c7d);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            width: 100%;
+        }
+        .upsell-btn:hover { opacity: 0.9; }
+        .upsell-skip {
+            display: block;
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 13px;
+            text-decoration: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* ---- Affiliate Share ---- */
+        .share-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 24px 0;
+            text-align: center;
+        }
+        .share-section h4 { margin-bottom: 8px; font-size: 16px; }
+        .share-section p { font-size: 14px; }
+        .share-section a { color: var(--accent); text-decoration: none; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -205,6 +320,37 @@
         <strong>Bookmark this page.</strong> You can come back anytime using the same link to re-download your files. Your access never expires.
     </div>
 
+    <!-- Upsell: Premium Add-On -->
+    <div class="upsell" id="upsell-section">
+        <div class="upsell-badge">One-Time Offer</div>
+        <h3>Want to Go Faster?</h3>
+        <p class="upsell-desc">Upgrade to the Premium Pack and get advanced resources to accelerate your AI income:</p>
+        <ul class="upsell-features">
+            <li><span class="check">&#9733;</span> 200 Advanced AI Prompts (industry-specific)</li>
+            <li><span class="check">&#9733;</span> Video walkthrough of the entire blueprint</li>
+            <li><span class="check">&#9733;</span> Client acquisition email templates</li>
+            <li><span class="check">&#9733;</span> Private community access</li>
+            <li><span class="check">&#9733;</span> Monthly live Q&A sessions</li>
+        </ul>
+        <div class="upsell-price">
+            <span class="strike">$97</span>
+            <span class="big">$47</span>
+            One-time upgrade
+        </div>
+        <button class="upsell-btn" onclick="showToast('Premium Pack coming soon! You will be the first to know.', false)">
+            Upgrade to Premium — $47
+        </button>
+        <button class="upsell-skip" onclick="document.getElementById('upsell-section').style.display='none'">
+            No thanks, I'm good with what I have
+        </button>
+    </div>
+
+    <!-- Share / Affiliate -->
+    <div class="share-section">
+        <h4>Know someone who'd benefit?</h4>
+        <p>Share the AI Income Blueprint and <a href="/affiliate">earn 50% commission</a> on every sale.</p>
+    </div>
+
     {% else %}
     <p>Your payment was successful. Welcome to the AI Income Blueprint.</p>
 
@@ -251,5 +397,15 @@
     </div>
     {% endif %}
 </div>
+
+<script>
+function showToast(msg) {
+    var toast = document.createElement('div');
+    toast.style.cssText = 'position:fixed;bottom:30px;right:30px;background:#12121a;border:1px solid #6c5ce7;border-radius:12px;padding:16px 24px;font-size:14px;color:#e8e8ed;z-index:9999;font-family:inherit;';
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(function() { toast.remove(); }, 4000);
+}
+</script>
 </body>
 </html>

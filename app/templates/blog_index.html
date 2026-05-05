@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Income Blog — Tips, Guides & Strategies</title>
+    {% if ga_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ ga_id }}');
+    </script>
+    {% endif %}
+    <meta name="description" content="Learn how to make money with AI. Free guides on AI freelancing, digital products, ChatGPT prompts, and side hustles.">
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+    <style>
+        :root {
+            --bg: #0a0a0f; --surface: #12121a; --border: #1e1e2e;
+            --text: #e8e8ed; --muted: #8b8b9e; --accent: #6c5ce7; --green: #00d68f;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+        header { text-align: center; padding: 60px 24px 40px; }
+        header h1 { font-size: 36px; font-weight: 800; margin-bottom: 8px; }
+        header p { color: var(--muted); font-size: 18px; }
+        .blog-list { padding: 0 24px 60px; }
+        .blog-card {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+            padding: 32px; margin-bottom: 24px; transition: border-color 0.3s;
+        }
+        .blog-card:hover { border-color: var(--accent); }
+        .blog-card h2 { font-size: 22px; margin-bottom: 8px; }
+        .blog-card h2 a { color: var(--text); text-decoration: none; }
+        .blog-card h2 a:hover { color: var(--accent); }
+        .blog-card p { color: var(--muted); font-size: 15px; margin-bottom: 12px; }
+        .blog-card .meta { font-size: 13px; color: var(--muted); }
+        .read-more {
+            color: var(--accent); text-decoration: none; font-weight: 600; font-size: 14px;
+        }
+        .read-more:hover { text-decoration: underline; }
+        .back-link {
+            display: block; text-align: center; margin-bottom: 24px;
+            color: var(--accent); text-decoration: none; font-size: 14px;
+        }
+        .back-link:hover { text-decoration: underline; }
+        footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+        footer a { color: var(--accent); text-decoration: none; }
+    </style>
+</head>
+<body>
+<a class="back-link" href="/">&larr; Back to AI Income Blueprint</a>
+
+<header>
+    <h1>AI Income Blog</h1>
+    <p>Free guides, tips, and strategies for making money with AI</p>
+</header>
+
+<div class="blog-list">
+    <div class="container">
+        <div class="blog-card">
+            <h2><a href="/blog/how-to-make-money-with-ai-2025">How to Make Money With AI in 2025: 7 Proven Methods</a></h2>
+            <p>Discover 7 proven ways to earn money with AI in 2025. From freelancing to digital products, learn exactly how beginners are turning AI into income.</p>
+            <span class="meta">January 15, 2025</span> &bull; <a class="read-more" href="/blog/how-to-make-money-with-ai-2025">Read more &rarr;</a>
+        </div>
+
+        <div class="blog-card">
+            <h2><a href="/blog/best-ai-side-hustles-beginners">5 Best AI Side Hustles for Complete Beginners</a></h2>
+            <p>No experience needed. These 5 AI side hustles can earn you $300-$3,000/month starting from scratch.</p>
+            <span class="meta">January 20, 2025</span> &bull; <a class="read-more" href="/blog/best-ai-side-hustles-beginners">Read more &rarr;</a>
+        </div>
+
+        <div class="blog-card">
+            <h2><a href="/blog/chatgpt-money-making-prompts">10 ChatGPT Prompts That Can Actually Make You Money</a></h2>
+            <p>Stop using ChatGPT for fun. These 10 prompts are designed to help you earn real money through freelancing, content creation, and digital products.</p>
+            <span class="meta">February 1, 2025</span> &bull; <a class="read-more" href="/blog/chatgpt-money-making-prompts">Read more &rarr;</a>
+        </div>
+
+        <div class="blog-card">
+            <h2><a href="/blog/ai-freelancing-guide">The Complete Guide to AI Freelancing in 2025</a></h2>
+            <p>How to start freelancing with AI skills. Covers pricing, finding clients, delivering work, and scaling to $5K/month.</p>
+            <span class="meta">February 10, 2025</span> &bull; <a class="read-more" href="/blog/ai-freelancing-guide">Read more &rarr;</a>
+        </div>
+
+        <div class="blog-card">
+            <h2><a href="/blog/digital-products-ai">How to Create and Sell Digital Products Using AI</a></h2>
+            <p>Learn how to use AI to create eBooks, templates, courses, and printables that sell. Step-by-step guide for building passive income.</p>
+            <span class="meta">February 15, 2025</span> &bull; <a class="read-more" href="/blog/digital-products-ai">Read more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 AI Income Blueprint. All rights reserved.</p>
+    <p style="margin-top: 8px;"><a href="/">Home</a> &bull; <a href="/affiliate">Affiliate Program</a> &bull; <a href="mailto:support@aicashstarterkit.com">Contact</a></p>
+</footer>
+</body>
+</html>
