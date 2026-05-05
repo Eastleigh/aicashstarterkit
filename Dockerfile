@@ -8,6 +8,7 @@ RUN pip install --no-cache-dir .
 COPY . .
 
 RUN python generate_pdfs.py
+RUN mkdir -p data
 
 EXPOSE 8000
 

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affiliate Program — AI Income Blueprint</title>
+    {% if ga_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ ga_id }}');
+    </script>
+    {% endif %}
+    <meta name="description" content="Earn 50% commission promoting the AI Income Blueprint. Get $13.50 for every sale you refer. Free to join.">
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+    <style>
+        :root {
+            --bg: #0a0a0f; --surface: #12121a; --border: #1e1e2e;
+            --text: #e8e8ed; --muted: #8b8b9e; --accent: #6c5ce7;
+            --green: #00d68f; --green-glow: rgba(0, 214, 143, 0.2);
+            --accent-glow: rgba(108, 92, 231, 0.3);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .container { max-width: 700px; margin: 0 auto; padding: 0 24px; }
+        .back-link { display: block; text-align: center; margin: 24px 0; color: var(--accent); text-decoration: none; font-size: 14px; }
+        .back-link:hover { text-decoration: underline; }
+
+        .hero { text-align: center; padding: 60px 24px; }
+        .hero h1 { font-size: 36px; font-weight: 800; margin-bottom: 12px; }
+        .hero p { color: var(--muted); font-size: 18px; max-width: 500px; margin: 0 auto; }
+
+        .stats-row { display: flex; justify-content: center; gap: 40px; padding: 30px 0; flex-wrap: wrap; }
+        .stat { text-align: center; }
+        .stat .num { font-size: 36px; font-weight: 800; color: var(--green); }
+        .stat .label { font-size: 14px; color: var(--muted); }
+
+        .card {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+            padding: 32px; margin: 24px auto; max-width: 500px;
+        }
+        .card h3 { font-size: 20px; margin-bottom: 16px; }
+
+        input[type="email"] {
+            width: 100%; padding: 14px 16px; border-radius: 10px; border: 1px solid var(--border);
+            background: var(--bg); color: var(--text); font-size: 16px; margin-bottom: 12px; outline: none;
+        }
+        input[type="email"]:focus { border-color: var(--accent); }
+
+        .btn {
+            width: 100%; padding: 14px; border-radius: 10px; border: none;
+            background: linear-gradient(135deg, var(--accent), #a855f7); color: white;
+            font-size: 16px; font-weight: 700; cursor: pointer;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .result { margin-top: 20px; display: none; }
+        .ref-link-box {
+            background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+            padding: 12px 16px; font-size: 14px; word-break: break-all; margin: 12px 0;
+            color: var(--green);
+        }
+        .copy-btn {
+            background: var(--green); color: var(--bg); border: none; padding: 8px 16px;
+            border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px;
+        }
+
+        .stats-card { display: none; }
+        .stats-card .stat-row {
+            display: flex; justify-content: space-between; padding: 12px 0;
+            border-bottom: 1px solid var(--border); font-size: 15px;
+        }
+        .stats-card .stat-row:last-child { border: none; }
+        .stats-card .stat-label { color: var(--muted); }
+        .stats-card .stat-value { font-weight: 600; }
+
+        .how-it-works { padding: 60px 24px; }
+        .how-it-works h2 { text-align: center; font-size: 28px; margin-bottom: 32px; }
+        .steps { display: grid; gap: 24px; }
+        .step-card {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+            padding: 24px; display: flex; gap: 16px; align-items: flex-start;
+        }
+        .step-num {
+            flex-shrink: 0; width: 40px; height: 40px;
+            background: linear-gradient(135deg, var(--accent), #a855f7); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 18px;
+        }
+        .step-card h4 { margin-bottom: 4px; }
+        .step-card p { color: var(--muted); font-size: 14px; }
+
+        footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+        footer a { color: var(--accent); text-decoration: none; }
+    </style>
+</head>
+<body>
+<a class="back-link" href="/">&larr; Back to AI Income Blueprint</a>
+
+<section class="hero">
+    <h1>Earn 50% Commission</h1>
+    <p>Promote the AI Income Blueprint and earn $13.50 for every sale. Free to join, no limits on earnings.</p>
+</section>
+
+<div class="stats-row">
+    <div class="stat">
+        <div class="num">50%</div>
+        <div class="label">Commission Rate</div>
+    </div>
+    <div class="stat">
+        <div class="num">$13.50</div>
+        <div class="label">Per Sale</div>
+    </div>
+    <div class="stat">
+        <div class="num">30 days</div>
+        <div class="label">Cookie Duration</div>
+    </div>
+</div>
+
+<!-- Register / Get Link -->
+<div class="card" id="register-card">
+    <h3>Get Your Affiliate Link</h3>
+    <form id="register-form" onsubmit="registerAffiliate(event)">
+        <input type="email" id="aff-email" required placeholder="Your email address">
+        <button type="submit" class="btn" id="register-btn">Get My Link</button>
+    </form>
+    <div class="result" id="register-result">
+        <p style="color: var(--green); margin-bottom: 8px;">You're in! Here's your affiliate link:</p>
+        <div class="ref-link-box" id="ref-link"></div>
+        <button class="copy-btn" onclick="copyLink()">Copy Link</button>
+    </div>
+    <p id="register-error" style="display: none; color: var(--accent); margin-top: 12px; font-size: 14px;"></p>
+</div>
+
+<!-- Check Stats -->
+<div class="card">
+    <h3>Check Your Stats</h3>
+    <div style="display: flex; gap: 8px;">
+        <input type="text" id="stats-ref" placeholder="Your ref code" style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 14px; outline: none;">
+        <button onclick="checkStats()" class="copy-btn" style="background: var(--accent); color: white;">Check</button>
+    </div>
+    <div class="stats-card" id="stats-result">
+        <div class="stat-row">
+            <span class="stat-label">Total Referrals</span>
+            <span class="stat-value" id="stat-referrals">0</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Total Earnings</span>
+            <span class="stat-value" id="stat-earnings" style="color: var(--green);">$0.00</span>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works -->
+<section class="how-it-works">
+    <div class="container">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <div>
+                    <h4>Sign Up</h4>
+                    <p>Enter your email above. You'll get a unique referral link instantly.</p>
+                </div>
+            </div>
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <div>
+                    <h4>Share Your Link</h4>
+                    <p>Post it on social media, your blog, YouTube description, or send it to friends.</p>
+                </div>
+            </div>
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <div>
+                    <h4>Earn Commission</h4>
+                    <p>When someone buys through your link, you earn 50% ($13.50). Payouts are processed monthly.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 AI Income Blueprint. All rights reserved.</p>
+    <p style="margin-top: 8px;"><a href="/">Home</a> &bull; <a href="/blog">Blog</a> &bull; <a href="mailto:support@aicashstarterkit.com">Contact</a></p>
+</footer>
+
+<script>
+async function registerAffiliate(e) {
+    e.preventDefault();
+    var btn = document.getElementById('register-btn');
+    btn.disabled = true;
+    btn.textContent = 'Creating...';
+
+    try {
+        var res = await fetch('/api/affiliate/register', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ email: document.getElementById('aff-email').value })
+        });
+        var data = await res.json();
+        if (res.ok) {
+            document.getElementById('ref-link').textContent = data.ref_link;
+            document.getElementById('register-result').style.display = 'block';
+            document.getElementById('register-form').style.display = 'none';
+        } else if (res.status === 409) {
+            var link = '{{ domain }}/?ref=' + data.ref_code;
+            document.getElementById('ref-link').textContent = link;
+            document.getElementById('register-result').style.display = 'block';
+            document.getElementById('register-form').style.display = 'none';
+        } else {
+            var err = document.getElementById('register-error');
+            err.textContent = data.error || 'Something went wrong.';
+            err.style.display = 'block';
+        }
+    } catch(err) {
+        var errEl = document.getElementById('register-error');
+        errEl.textContent = 'Connection error. Try again.';
+        errEl.style.display = 'block';
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Get My Link';
+    }
+}
+
+function copyLink() {
+    var text = document.getElementById('ref-link').textContent;
+    navigator.clipboard.writeText(text);
+    var btn = event.target;
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy Link'; }, 2000);
+}
+
+async function checkStats() {
+    var ref = document.getElementById('stats-ref').value.trim();
+    if (!ref) return;
+    try {
+        var res = await fetch('/api/affiliate/stats?ref=' + encodeURIComponent(ref));
+        var data = await res.json();
+        if (res.ok) {
+            document.getElementById('stat-referrals').textContent = data.total_referrals;
+            document.getElementById('stat-earnings').textContent = '$' + (data.total_earnings / 100).toFixed(2);
+            document.getElementById('stats-result').style.display = 'block';
+        }
+    } catch(err) {}
+}
+</script>
+</body>
+</html>
